@@ -23,25 +23,28 @@ def parse_gt(filename):
         lines = f.readlines()
         splitlines = [x.strip().split(' ') for x in lines]
         for splitline in splitlines:
-            object_struct = {}
-            object_struct['name'] = splitline[8]
-            if (len(splitline) == 9):
-                object_struct['difficult'] = 0
-            elif (len(splitline) == 10):
-                object_struct['difficult'] = int(splitline[9])
-            # object_struct['difficult'] = 0
-            object_struct['bbox'] = [int(float(splitline[0])),
-                                     int(float(splitline[1])),
-                                     int(float(splitline[4])),
-                                     int(float(splitline[5]))]
-            w = int(float(splitline[4])) - int(float(splitline[0]))
-            h = int(float(splitline[5])) - int(float(splitline[1]))
-            object_struct['area'] = w * h
-            # print('area:', object_struct['area'])
-            # if object_struct['area'] < (15 * 15):
-            #     #print('area:', object_struct['area'])
-            #     object_struct['difficult'] = 1
-            objects.append(object_struct)
+            try:
+                object_struct = {}
+                object_struct['name'] = splitline[8]
+                if (len(splitline) == 9):
+                    object_struct['difficult'] = 0
+                elif (len(splitline) == 10):
+                    object_struct['difficult'] = int(splitline[9])
+                # object_struct['difficult'] = 0
+                object_struct['bbox'] = [int(float(splitline[0])),
+                                         int(float(splitline[1])),
+                                         int(float(splitline[4])),
+                                         int(float(splitline[5]))]
+                w = int(float(splitline[4])) - int(float(splitline[0]))
+                h = int(float(splitline[5])) - int(float(splitline[1]))
+                object_struct['area'] = w * h
+                # print('area:', object_struct['area'])
+                # if object_struct['area'] < (15 * 15):
+                #     #print('area:', object_struct['area'])
+                #     object_struct['difficult'] = 1
+                objects.append(object_struct)
+            except IndexError:
+                pass
     return objects
 
 
@@ -96,7 +99,7 @@ def voc_eval(detpath,
     detpath: Path to detections
         detpath.format(classname) should produce the detection results file.
     annopath: Path to annotations
-        annopath.format(imagename) should be the xml annotations file.
+        annopath.format(imagename) should be the xml annotations file.(not neccesary .xml)
     imagesetfile: Text file containing the list of images, one image per line.
     classname: Category name (duh)
     cachedir: Directory for caching the annotations
@@ -160,7 +163,7 @@ def voc_eval(detpath,
     confidence = np.array([float(x[1]) for x in splitlines])
 
     # print('check confidence: ', confidence)
-
+    # Bounding boxes for detections
     BB = np.array([[float(z) for z in x[2:]] for x in splitlines])
 
     # sort by confidence
@@ -179,18 +182,18 @@ def voc_eval(detpath,
     tp = np.zeros(nd)
     fp = np.zeros(nd)
     for d in range(nd):
-        R = class_recs[image_ids[d]]
-        bb = BB[d, :].astype(float)
+        R = class_recs[image_ids[d]]  # struct with ground thruth boxes for index 'd' image in detections list
+        bb = BB[d, :].astype(float)  # detection bounding box by 'd' index
         ovmax = -np.inf
-        BBGT = R['bbox'].astype(float)
+        BBGT = R['bbox'].astype(float)  # actual bounding boxes for index 'd' in detections list
 
         if BBGT.size > 0:
             # compute overlaps
             # intersection
-            ixmin = np.maximum(BBGT[:, 0], bb[0])
-            iymin = np.maximum(BBGT[:, 1], bb[1])
-            ixmax = np.minimum(BBGT[:, 2], bb[2])
-            iymax = np.minimum(BBGT[:, 3], bb[3])
+            ixmin = np.maximum(BBGT[:, 0], bb[0])   # takes the max x comparing xmin on detection with all xmin's on ground thruth's
+            iymin = np.maximum(BBGT[:, 1], bb[1])   # takes the max y comparing ymin on detection with all ymin's on ground thruth's
+            ixmax = np.minimum(BBGT[:, 2], bb[2])   # takes the min x comparing xmax on detection with all xmax's on ground thruth's
+            iymax = np.minimum(BBGT[:, 3], bb[3])   # takes the min y comparing ymax on detection with all ymax's on ground thruth's
             iw = np.maximum(ixmax - ixmin + 1., 0.)
             ih = np.maximum(iymax - iymin + 1., 0.)
             inters = iw * ih
@@ -205,7 +208,7 @@ def voc_eval(detpath,
             ## if there exist 2
             jmax = np.argmax(overlaps)
 
-        if ovmax > ovthresh:
+        if ovmax > ovthresh:    # comparing maximum overlap with overlap's threshold
             if not R['difficult'][jmax]:
                 if not R['det'][jmax]:
                     tp[d] = 1.
@@ -239,9 +242,9 @@ def main():
     # annopath = r'I:\dota\testset\ReclabelTxt-utf-8\{:s}.txt'
     # imagesetfile = r'I:\dota\testset\va.txt'
 
-    detpath = r'PATH_TO_BE_CONFIGURED/Task1_{:s}.txt'
-    annopath = r'PATH_TO_BE_CONFIGURED/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
-    imagesetfile = r'PATH_TO_BE_CONFIGURED/valset.txt'
+    detpath = r'results_her/results_{:s}.txt'
+    annopath = r'data/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
+    imagesetfile = r'data/valset.txt'
 
     classnames = ['small-vehicle', 'large-vehicle']
     classaps = []
