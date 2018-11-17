@@ -242,7 +242,7 @@ def main():
     # annopath = r'I:\dota\testset\ReclabelTxt-utf-8\{:s}.txt'
     # imagesetfile = r'I:\dota\testset\va.txt'
 
-    detpath = r'results_her/results_{:s}.txt'
+    detpath = r'detections/results_{:s}.txt'
     annopath = r'data/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
     imagesetfile = r'data/valset.txt'
 
