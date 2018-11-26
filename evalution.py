@@ -246,7 +246,7 @@ def main():
     annopath = r'data/labelTxt/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
     imagesetfile = r'data/valset.txt'
 
-    classnames = ['small-vehicle', 'large-vehicle']
+    classnames = ['small-vehicle']
     classaps = []
     map = 0
     for classname in classnames:
