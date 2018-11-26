@@ -243,7 +243,7 @@ def main():
     # imagesetfile = r'I:\dota\testset\va.txt'
 
     detpath = r'detections/results_{:s}.txt'
-    annopath = r'data/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
+    annopath = r'data/labelTxt/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
     imagesetfile = r'data/valset.txt'
 
     classnames = ['small-vehicle', 'large-vehicle']
