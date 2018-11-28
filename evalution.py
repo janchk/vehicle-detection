@@ -31,10 +31,12 @@ def parse_gt(filename):
                 elif (len(splitline) == 10):
                     object_struct['difficult'] = int(splitline[9])
                 # object_struct['difficult'] = 0
-                object_struct['bbox'] = [int(float(splitline[0])),
-                                         int(float(splitline[1])),
-                                         int(float(splitline[4])),
-                                         int(float(splitline[5]))]
+                ys = [splitline[1],splitline[3],splitline[5],splitline[7]]
+                xs = [splitline[0], splitline[2], splitline[4], splitline[6]]
+                object_struct['bbox'] = [int(float(min(xs))),
+                                         int(float(min(ys))),
+                                         int(float(max(xs))),
+                                         int(float(max(ys)))]
                 w = int(float(splitline[4])) - int(float(splitline[0]))
                 h = int(float(splitline[5])) - int(float(splitline[1]))
                 object_struct['area'] = w * h
@@ -197,11 +199,13 @@ def voc_eval(detpath,
             iw = np.maximum(ixmax - ixmin + 1., 0.)
             ih = np.maximum(iymax - iymin + 1., 0.)
             inters = iw * ih
-
+            print(BBGT[:, 0], bb[0], ixmin)
             # union
             uni = ((bb[2] - bb[0] + 1.) * (bb[3] - bb[1] + 1.) +
                    (BBGT[:, 2] - BBGT[:, 0] + 1.) *
                    (BBGT[:, 3] - BBGT[:, 1] + 1.) - inters)
+            print(inters, uni)
+            print('\n\n')
 
             overlaps = inters / uni
             ovmax = np.max(overlaps)
@@ -244,7 +248,7 @@ def main():
 
     detpath = r'detections/results_{:s}.txt'
     annopath = r'data/labelTxt/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
-    imagesetfile = r'data/valset.txt'
+    imagesetfile = r'data_t/valset.txt'
 
     classnames = ['small-vehicle']
     classaps = []
