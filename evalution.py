@@ -31,12 +31,29 @@ def parse_gt(filename):
                 elif (len(splitline) == 10):
                     object_struct['difficult'] = int(splitline[9])
                 # object_struct['difficult'] = 0
-                object_struct['bbox'] = [int(float(splitline[0])),
-                                         int(float(splitline[1])),
-                                         int(float(splitline[4])),
-                                         int(float(splitline[5]))]
-                w = int(float(splitline[4])) - int(float(splitline[0]))
-                h = int(float(splitline[5])) - int(float(splitline[1]))
+                ys = [splitline[1], splitline[3], splitline[5], splitline[7]]
+                xs = [splitline[0], splitline[2], splitline[4], splitline[6]]
+
+                object_struct['bbox'] = [int(float(min(xs))),
+                                         int(float(min(ys))),
+                                         int(float(max(xs))),
+                                         int(float(max(ys)))]
+                # object_struct['bbox'] = [int(float(splitline[0])),
+                #                          int(float(splitline[1])),
+                #                          int(float(splitline[4])),
+                #                          int(float(splitline[5]))]
+                w = int(float(float(max(xs)) - float(min(xs))))
+                h = int(float(float(max(ys)) - float(min(ys))))
+
+                # w = int(float(splitline[4])) - int(float(splitline[0]))
+                # h = int(float(splitline[5])) - int(float(splitline[1]))
+
+                # object_struct['bbox'] = [int(float(splitline[0])),
+                #                          int(float(splitline[1])),
+                #                          int(float(splitline[4])),
+                #                          int(float(splitline[5]))]
+                # w = int(float(splitline[4])) - int(float(splitline[0]))
+                # h = int(float(splitline[5])) - int(float(splitline[1]))
                 object_struct['area'] = w * h
                 # print('area:', object_struct['area'])
                 # if object_struct['area'] < (15 * 15):
@@ -190,6 +207,10 @@ def voc_eval(detpath,
         if BBGT.size > 0:
             # compute overlaps
             # intersection
+            # ixmin = np.maximum(min(splitline[0], splitline[2], splitline[4], splitline[6]), bb[0])
+            # iymin = np.maximum(min(splitline[1], splitline[3], splitline[5], splitline[7]), bb[1])
+            # ixmax = np.minimum(max(splitline[0], splitline[2], splitline[4], splitline[6]), bb[2])
+            # iymax = np.minimum(max(splitline[1], splitline[3], splitline[5], splitline[7]), bb[3])
             ixmin = np.maximum(BBGT[:, 0], bb[0])   # takes the max x comparing xmin on detection with all xmin's on ground thruth's
             iymin = np.maximum(BBGT[:, 1], bb[1])   # takes the max y comparing ymin on detection with all ymin's on ground thruth's
             ixmax = np.minimum(BBGT[:, 2], bb[2])   # takes the min x comparing xmax on detection with all xmax's on ground thruth's
@@ -221,6 +242,7 @@ def voc_eval(detpath,
 
     # compute precision recall
 
+    print('len fp', len(fp))
     print('check fp:', fp)
     print('check tp', tp)
 
@@ -246,7 +268,7 @@ def main():
     annopath = r'data/{:s}.txt'  # change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
     imagesetfile = r'data/valset.txt'
 
-    classnames = ['small-vehicle', 'large-vehicle']
+    classnames = ['small-vehicle']
     classaps = []
     map = 0
     for classname in classnames:
@@ -255,8 +277,8 @@ def main():
                                  annopath,
                                  imagesetfile,
                                  classname,
-                                 ovthresh=0.5,
-                                 use_07_metric=True)
+                                 ovthresh=0.1,
+                                 use_07_metric=False)
         map = map + ap
         # print('rec: ', rec, 'prec: ', prec, 'ap: ', ap)
         print('ap: ', ap)
@@ -268,6 +290,7 @@ def main():
         # plt.ylabel('precision')
         # plt.plot(rec, prec)
         # plt.show()
+
     map = map / len(classnames)
     print('map:', map)
     classaps = 100 * np.array(classaps)
