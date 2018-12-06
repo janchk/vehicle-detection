@@ -1,4 +1,4 @@
 **/.idea
-*.log
-*.params
-*.pyc
+.log
+.params
+.pyc

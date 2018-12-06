@@ -1,0 +1,193 @@
+2018-12-03 04:41:40,331 testing cfg:{'CLASS_AGNOSTIC': False,
+ 'MXNET_VERSION': 'mxnet',
+ 'RESIZE_TO_FIX_SIZE': True,
+ 'SCALES': [(1024, 1024)],
+ 'TEST': {'BATCH_IMAGES': 1,
+          'CXX_PROPOSAL': False,
+          'DO_MULTISCALE_TEST': False,
+          'HAS_RPN': True,
+          'MULTISCALE': [1.0, 1.2, 1.4, 1.6],
+          'NMS': 0.3,
+          'PROPOSAL_MIN_SIZE': 0,
+          'PROPOSAL_NMS_THRESH': 0.7,
+          'PROPOSAL_POST_NMS_TOP_N': 2000,
+          'PROPOSAL_PRE_NMS_TOP_N': 20000,
+          'RPN_MIN_SIZE': 0,
+          'RPN_NMS_THRESH': 0.7,
+          'RPN_POST_NMS_TOP_N': 300,
+          'RPN_PRE_NMS_TOP_N': 6000,
+          'max_per_image': 300,
+          'save_img_path': '',
+          'test_epoch': 32},
+ 'TRAIN': {'ALTERNATE': {'RCNN_BATCH_IMAGES': 0,
+                         'RPN_BATCH_IMAGES': 0,
+                         'rfcn1_epoch': 0,
+                         'rfcn1_lr': 0,
+                         'rfcn1_lr_step': '',
+                         'rfcn2_epoch': 0,
+                         'rfcn2_lr': 0,
+                         'rfcn2_lr_step': '',
+                         'rpn1_epoch': 0,
+                         'rpn1_lr': 0,
+                         'rpn1_lr_step': '',
+                         'rpn2_epoch': 0,
+                         'rpn2_lr': 0,
+                         'rpn2_lr_step': '',
+                         'rpn3_epoch': 0,
+                         'rpn3_lr': 0,
+                         'rpn3_lr_step': ''},
+           'ASPECT_GROUPING': True,
+           'BATCH_IMAGES': 1,
+           'BATCH_ROIS': 128,
+           'BATCH_ROIS_OHEM': 128,
+           'BBOX_MEANS': [0.0, 0.0, 0.0, 0.0],
+           'BBOX_NORMALIZATION_PRECOMPUTED': True,
+           'BBOX_REGRESSION_THRESH': 0.5,
+           'BBOX_STDS': [0.1, 0.1, 0.2, 0.2],
+           'BBOX_WEIGHTS': array([1., 1., 1., 1.]),
+           'BG_THRESH_HI': 0.5,
+           'BG_THRESH_LO': 0.1,
+           'CXX_PROPOSAL': False,
+           'ENABLE_OHEM': True,
+           'END2END': True,
+           'FG_FRACTION': 0.25,
+           'FG_THRESH': 0.5,
+           'FLIP': True,
+           'RESUME': False,
+           'RPN_BATCH_SIZE': 256,
+           'RPN_BBOX_WEIGHTS': [1.0, 1.0, 1.0, 1.0],
+           'RPN_CLOBBER_POSITIVES': False,
+           'RPN_FG_FRACTION': 0.5,
+           'RPN_MIN_SIZE': 0,
+           'RPN_NEGATIVE_OVERLAP': 0.3,
+           'RPN_NMS_THRESH': 0.7,
+           'RPN_POSITIVE_OVERLAP': 0.7,
+           'RPN_POSITIVE_WEIGHT': -1.0,
+           'RPN_POST_NMS_TOP_N': 300,
+           'RPN_PRE_NMS_TOP_N': 6000,
+           'SHUFFLE': True,
+           'begin_epoch': 0,
+           'end_epoch': 60,
+           'lr': 0.0005,
+           'lr_factor': 0.1,
+           'lr_step': '40,52',
+           'model_prefix': 'rcnn_DOTA_aligned',
+           'momentum': 0.9,
+           'warmup': True,
+           'warmup_lr': 5e-05,
+           'warmup_step': 4000,
+           'wd': 0.0005},
+ 'dataset': {'NUM_CLASSES': 16,
+             'dataset': 'DOTA',
+             'dataset_path': '/opt/media/jan/Data/Projects/aerial/train_ds',
+             'image_set': 'train',
+             'proposal': 'rpn',
+             'root_path': '/opt/media/jan/Data/Projects/aerial/',
+             'test_image_set': 'test'},
+ 'default': {'frequent': 100, 'kvstore': 'device'},
+ 'gpus': '0',
+ 'network': {'ANCHOR_RATIOS': [0.3, 0.5, 1, 2, 4],
+             'ANCHOR_SCALES': [8, 16, 32],
+             'FIXED_PARAMS': ['conv1',
+                              'bn_conv1',
+                              'res2',
+                              'bn2',
+                              'gamma',
+                              'beta'],
+             'FIXED_PARAMS_SHARED': ['conv1',
+                                     'bn_conv1',
+                                     'res2',
+                                     'bn2',
+                                     'res3',
+                                     'bn3',
+                                     'res4',
+                                     'bn4',
+                                     'gamma',
+                                     'beta'],
+             'IMAGE_STRIDE': 0,
+             'NUM_ANCHORS': 15,
+             'PIXEL_MEANS': array([103.06, 115.9 , 123.15]),
+             'RCNN_FEAT_STRIDE': 16,
+             'RPN_FEAT_STRIDE': 16,
+             'pretrained': './model/pretrained_model/resnet_v1_101',
+             'pretrained_epoch': 0},
+ 'output_path': './output/rcnn/DOTA',
+ 'symbol': 'resnet_v1_101_rcnn'}
+
+2018-12-03 04:41:43,214 testing 1/77 data 0.4813s net 0.3363s post 0.0515s
+2018-12-03 04:41:43,360 testing 2/77 data 0.2408s net 0.2339s post 0.0330s
+2018-12-03 04:41:43,761 testing 3/77 data 0.1606s net 0.2712s post 0.0404s
+2018-12-03 04:41:44,197 testing 4/77 data 0.1206s net 0.2968s post 0.0458s
+2018-12-03 04:41:44,635 testing 5/77 data 0.0965s net 0.3127s post 0.0488s
+2018-12-03 04:41:45,101 testing 6/77 data 0.0805s net 0.3266s post 0.0524s
+2018-12-03 04:41:45,540 testing 7/77 data 0.0690s net 0.3331s post 0.0543s
+2018-12-03 04:41:45,882 testing 8/77 data 0.0604s net 0.3282s post 0.0536s
+2018-12-03 04:41:46,266 testing 9/77 data 0.0538s net 0.3284s post 0.0535s
+2018-12-03 04:41:46,715 testing 10/77 data 0.0484s net 0.3335s post 0.0552s
+2018-12-03 04:41:47,248 testing 11/77 data 0.0535s net 0.3366s post 0.0556s
+2018-12-03 04:41:47,683 testing 12/77 data 0.0491s net 0.3397s post 0.0561s
+2018-12-03 04:41:48,205 testing 13/77 data 0.0612s net 0.3342s post 0.0554s
+2018-12-03 04:41:48,469 testing 14/77 data 0.0568s net 0.3265s post 0.0541s
+2018-12-03 04:41:49,093 testing 15/77 data 0.0662s net 0.3293s post 0.0544s
+2018-12-03 04:41:49,510 testing 16/77 data 0.0621s net 0.3310s post 0.0548s
+2018-12-03 04:41:49,906 testing 17/77 data 0.0584s net 0.3314s post 0.0550s
+2018-12-03 04:41:50,259 testing 18/77 data 0.0552s net 0.3297s post 0.0548s
+2018-12-03 04:41:50,754 testing 19/77 data 0.0621s net 0.3263s post 0.0543s
+2018-12-03 04:41:51,076 testing 20/77 data 0.0594s net 0.3233s post 0.0538s
+2018-12-03 04:41:51,520 testing 21/77 data 0.0566s net 0.3266s post 0.0537s
+2018-12-03 04:41:51,870 testing 22/77 data 0.0540s net 0.3260s post 0.0530s
+2018-12-03 04:41:52,291 testing 23/77 data 0.0517s net 0.3274s post 0.0533s
+2018-12-03 04:41:52,751 testing 24/77 data 0.0496s net 0.3301s post 0.0539s
+2018-12-03 04:41:53,157 testing 25/77 data 0.0476s net 0.3310s post 0.0539s
+2018-12-03 04:41:53,550 testing 26/77 data 0.0458s net 0.3311s post 0.0541s
+2018-12-03 04:41:53,958 testing 27/77 data 0.0441s net 0.3319s post 0.0542s
+2018-12-03 04:41:54,412 testing 28/77 data 0.0425s net 0.3339s post 0.0545s
+2018-12-03 04:41:54,870 testing 29/77 data 0.0411s net 0.3360s post 0.0548s
+2018-12-03 04:41:55,311 testing 30/77 data 0.0397s net 0.3374s post 0.0551s
+2018-12-03 04:41:55,774 testing 31/77 data 0.0385s net 0.3394s post 0.0554s
+2018-12-03 04:41:56,140 testing 32/77 data 0.0373s net 0.3386s post 0.0553s
+2018-12-03 04:41:56,498 testing 33/77 data 0.0361s net 0.3375s post 0.0553s
+2018-12-03 04:41:56,957 testing 34/77 data 0.0352s net 0.3390s post 0.0555s
+2018-12-03 04:41:57,344 testing 35/77 data 0.0342s net 0.3388s post 0.0555s
+2018-12-03 04:41:57,732 testing 36/77 data 0.0333s net 0.3388s post 0.0553s
+2018-12-03 04:41:58,189 testing 37/77 data 0.0324s net 0.3402s post 0.0556s
+2018-12-03 04:41:58,673 testing 38/77 data 0.0316s net 0.3422s post 0.0560s
+2018-12-03 04:41:59,062 testing 39/77 data 0.0308s net 0.3420s post 0.0559s
+2018-12-03 04:41:59,495 testing 40/77 data 0.0300s net 0.3428s post 0.0560s
+2018-12-03 04:41:59,886 testing 41/77 data 0.0293s net 0.3426s post 0.0560s
+2018-12-03 04:42:00,805 testing 42/77 data 0.0400s net 0.3432s post 0.0562s
+2018-12-03 04:42:01,428 testing 43/77 data 0.0441s net 0.3434s post 0.0563s
+2018-12-03 04:42:01,892 testing 44/77 data 0.0431s net 0.3445s post 0.0566s
+2018-12-03 04:42:02,544 testing 45/77 data 0.0473s net 0.3449s post 0.0566s
+2018-12-03 04:42:02,953 testing 46/77 data 0.0463s net 0.3451s post 0.0566s
+2018-12-03 04:42:03,342 testing 47/77 data 0.0453s net 0.3449s post 0.0565s
+2018-12-03 04:42:03,799 testing 48/77 data 0.0444s net 0.3459s post 0.0567s
+2018-12-03 04:42:04,185 testing 49/77 data 0.0435s net 0.3456s post 0.0566s
+2018-12-03 04:42:04,556 testing 50/77 data 0.0426s net 0.3450s post 0.0566s
+2018-12-03 04:42:04,942 testing 51/77 data 0.0418s net 0.3447s post 0.0565s
+2018-12-03 04:42:05,309 testing 52/77 data 0.0410s net 0.3441s post 0.0565s
+2018-12-03 04:42:05,775 testing 53/77 data 0.0402s net 0.3452s post 0.0567s
+2018-12-03 04:42:06,219 testing 54/77 data 0.0395s net 0.3458s post 0.0569s
+2018-12-03 04:42:06,680 testing 55/77 data 0.0388s net 0.3466s post 0.0571s
+2018-12-03 04:42:07,120 testing 56/77 data 0.0381s net 0.3470s post 0.0573s
+2018-12-03 04:42:07,589 testing 57/77 data 0.0378s net 0.3477s post 0.0575s
+2018-12-03 04:42:07,923 testing 58/77 data 0.0371s net 0.3467s post 0.0572s
+2018-12-03 04:42:08,359 testing 59/77 data 0.0365s net 0.3472s post 0.0572s
+2018-12-03 04:42:08,810 testing 60/77 data 0.0359s net 0.3479s post 0.0573s
+2018-12-03 04:42:09,212 testing 61/77 data 0.0353s net 0.3479s post 0.0572s
+2018-12-03 04:42:09,616 testing 62/77 data 0.0347s net 0.3480s post 0.0571s
+2018-12-03 04:42:09,967 testing 63/77 data 0.0342s net 0.3474s post 0.0568s
+2018-12-03 04:42:10,380 testing 64/77 data 0.0337s net 0.3476s post 0.0568s
+2018-12-03 04:42:10,812 testing 65/77 data 0.0331s net 0.3480s post 0.0568s
+2018-12-03 04:42:11,219 testing 66/77 data 0.0327s net 0.3480s post 0.0568s
+2018-12-03 04:42:11,584 testing 67/77 data 0.0322s net 0.3475s post 0.0567s
+2018-12-03 04:42:11,816 testing 68/77 data 0.0317s net 0.3454s post 0.0563s
+2018-12-03 04:42:12,112 testing 69/77 data 0.0312s net 0.3441s post 0.0560s
+2018-12-03 04:42:12,518 testing 70/77 data 0.0308s net 0.3442s post 0.0561s
+2018-12-03 04:42:12,884 testing 71/77 data 0.0304s net 0.3438s post 0.0560s
+2018-12-03 04:42:13,287 testing 72/77 data 0.0300s net 0.3438s post 0.0560s
+2018-12-03 04:42:13,669 testing 73/77 data 0.0296s net 0.3436s post 0.0559s
+2018-12-03 04:42:14,121 testing 74/77 data 0.0292s net 0.3442s post 0.0560s
+2018-12-03 04:42:14,530 testing 75/77 data 0.0288s net 0.3443s post 0.0561s
+2018-12-03 04:42:14,898 testing 76/77 data 0.0284s net 0.3439s post 0.0560s
+2018-12-03 04:42:15,307 testing 77/77 data 0.0280s net 0.3440s post 0.0560s
