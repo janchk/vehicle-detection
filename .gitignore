@@ -2,5 +2,5 @@
 .log
 .params
 .pyc
-output/rcnn
-model/pretrained_model
+output/rcnn/
+model/pretrained_model/
