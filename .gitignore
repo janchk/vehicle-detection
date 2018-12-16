@@ -1,0 +1,6 @@
+**/.idea
+*.log
+*.params
+*.pyc
+**/output/rcnn/
+**/model/pretrained_model/
