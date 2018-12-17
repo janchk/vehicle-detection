@@ -43,6 +43,16 @@ The test.txt and train.txt are name of the subimages(without suffix) for train a
 	```
 	./model/pretrained_model/resnet_v1_101-0000.params
 	```
+	
+## Test
+
+Test command is:
+```
+python experiments/faster_rcnn/rcnn_test.py --cfg experiments/faster_rcnn/cfgs/DOTA.yaml --vis --ignore_cache --thresh 0.5
+```
+
+
+
 
 
 
